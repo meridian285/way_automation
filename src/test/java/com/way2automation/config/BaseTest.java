@@ -14,16 +14,11 @@ public abstract class BaseTest {
 
     @BeforeClass
     public static void setUp() {
-//        WebDriverManager.chromedriver().setup();
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments();
-//        options.addArguments("--disable-blink-features=AutomationControlled");
-//        options.addEncodedExtensions("enable-automation");
-
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         BasePage.setDriver(driver);
     }
 

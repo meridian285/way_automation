@@ -10,17 +10,26 @@ import org.openqa.selenium.support.PageFactory;
  */
 
 public class MainPage extends BasePage {
-    //Локатор пункта меню ManagerLoginButton
-    @FindBy(id = "menu-item-27625")
-    private WebElement bankManagerLoginButton;
+
+    //Локатор пункта меню Resources
+    @FindBy(id = "menu-item-27617")
+    private WebElement resourcesMenu;
+
+    //Локатор пункта подменю Practice Site 1
+    @FindBy(id = "menu-item-27618")
+    private WebElement practiceSite1Menu;
 
     public MainPage(){
         driver.get("https://www.way2automation.com/");
         PageFactory.initElements(driver, this);
     }
 
-    public SecurityPage clickMemberLoginMenu() {
-        bankManagerLoginButton.click();
-        return new SecurityPage();
+    public MainPage clickResourcesMenu() {
+        resourcesMenu.click();
+        return this;
+    }
+    public DummyRegistrationForm clickPracticeSite1Menu(){
+        practiceSite1Menu.click();
+        return new DummyRegistrationForm();
     }
 }

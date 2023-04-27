@@ -14,7 +14,6 @@ public class MainPage extends BasePage {
     //Локатор пункта меню Resources
     @FindBy(id = "menu-item-27617")
     private WebElement resourcesMenu;
-
     //Локатор пункта подменю Practice Site 1
     @FindBy(id = "menu-item-27618")
     private WebElement practiceSite1Menu;

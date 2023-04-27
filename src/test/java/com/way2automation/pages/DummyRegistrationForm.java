@@ -4,6 +4,7 @@ import com.way2automation.config.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Page class Dummy Registration Form
@@ -54,6 +55,7 @@ public class DummyRegistrationForm extends BasePage {
         submitButton.click();
     }
     public String checkAlert(){
-        return alertMessage.toString();
+        wait.until(ExpectedConditions.visibilityOf(alertMessage));
+        return alertMessage.getText();
     }
 }

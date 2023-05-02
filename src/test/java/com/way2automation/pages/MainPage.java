@@ -27,8 +27,9 @@ public class MainPage extends BasePage {
         resourcesMenu.click();
         return this;
     }
-    public DummyRegistrationForm clickPracticeSite1Menu(){
+
+    public DummyRegistrationPage clickPracticeSite1Menu(){
         practiceSite1Menu.click();
-        return new DummyRegistrationForm();
+        return new DummyRegistrationPage();
     }
 }

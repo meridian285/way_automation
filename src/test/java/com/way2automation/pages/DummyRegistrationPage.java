@@ -1,16 +1,19 @@
 package com.way2automation.pages;
 
 import com.way2automation.config.BasePage;
+import com.way2automation.config.Waits;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Page class Dummy Registration Form
  */
 
-public class DummyRegistrationForm extends BasePage {
+public class DummyRegistrationPage extends BasePage {
     // Поле регистрации Name
     @FindBy(name = "name")
     private WebElement nameField;
@@ -39,11 +42,13 @@ public class DummyRegistrationForm extends BasePage {
     @FindBy(xpath = "//div[@class='fancybox-inner']//p[@id='alert']")
     private WebElement alertMessage;
 
-    public DummyRegistrationForm(){
+    Waits wait = new Waits();
+
+    public DummyRegistrationPage(){
         PageFactory.initElements(driver,this);
     }
 
-    public void singInRegistrationForm(String name, String phone, String email, String country, String city,
+    public void signUpRegistrationForm(String name, String phone, String email, String country, String city,
                                        String username, String password){
         nameField.sendKeys(name);
         phoneField.sendKeys(phone);
@@ -54,8 +59,9 @@ public class DummyRegistrationForm extends BasePage {
         passwordField.sendKeys(password);
         submitButton.click();
     }
-    public String checkAlert(){
-        wait.until(ExpectedConditions.visibilityOf(alertMessage));
+
+    public String getAlertText(){
+        wait.getWait().until(ExpectedConditions.visibilityOf(alertMessage));
         return alertMessage.getText();
     }
 }

@@ -1,7 +1,7 @@
 package com.way2automation.tests;
 
 import com.way2automation.config.BaseTest;
-import com.way2automation.pages.DummyRegistrationForm;
+import com.way2automation.pages.DummyRegistrationPage;
 import com.way2automation.pages.MainPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,14 +12,19 @@ import org.testng.annotations.Test;
 public class DummyRegistrationFormTests extends BaseTest {
 
     @Test
-    public void checkLogIn() {
-        DummyRegistrationForm dummyRegistrationForm = new DummyRegistrationForm();
+    public void checkRegistrationForm() {
+        DummyRegistrationPage dummyRegistrationForm = new DummyRegistrationPage();
         MainPage mainPage = new MainPage();
         mainPage.clickResourcesMenu()
                 .clickPracticeSite1Menu()
-                .singInRegistrationForm("Vasya","35345345","werfgd@gmail.com","Russian Federation"
-                        ,"Moscow", "Vasya","Vasya2342");
-        Assert.assertEquals(dummyRegistrationForm.checkAlert()
-                ,"This is just a dummy form, you just clicked SUBMIT BUTTON","Ожидалось совпадение сообщений");
+                .signUpRegistrationForm("Vasya",
+                        "35345345",
+                        "werfgd@gmail.com",
+                        "Russian Federation"
+                        ,"Moscow",
+                        "Vasya",
+                        "Vasya2342");
+        Assert.assertEquals(dummyRegistrationForm.getAlertText(),
+                "This is just a dummy form, you just clicked SUBMIT BUTTON","Ожидалось совпадение сообщений");
     }
 }

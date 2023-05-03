@@ -13,18 +13,19 @@ public class DummyRegistrationFormTests extends BaseTest {
 
     @Test
     public void checkRegistrationForm() {
-        DummyRegistrationPage dummyRegistrationForm = new DummyRegistrationPage();
+        DummyRegistrationPage dummyRegistrationPage = new DummyRegistrationPage();
         MainPage mainPage = new MainPage();
-        mainPage.clickResourcesMenu()
-                .clickPracticeSite1Menu()
-                .signUpRegistrationForm("Vasya",
-                        "35345345",
-                        "werfgd@gmail.com",
-                        "Russian Federation"
-                        ,"Moscow",
-                        "Vasya",
-                        "Vasya2342");
-        Assert.assertEquals(dummyRegistrationForm.getAlertText(),
+        mainPage.clickMenu("Resources");
+        mainPage.clickMenu("Practice Site 1");
+        dummyRegistrationPage.signUpRegistrationForm(
+                "Vasya",
+                "35345345",
+                "werfgd@gmail.com",
+                "Russian Federation",
+                "Moscow",
+                "Vasya",
+                "Vasya2342");
+        Assert.assertEquals(dummyRegistrationPage.getAlertText(),
                 "This is just a dummy form, you just clicked SUBMIT BUTTON","Ожидалось совпадение сообщений");
     }
 }

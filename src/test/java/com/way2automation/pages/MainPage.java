@@ -17,10 +17,13 @@ public class MainPage extends BasePage {
         driver.get("https://www.way2automation.com/");
         PageFactory.initElements(driver, this);
     }
-    // Метод клика по любому пункту меню, для веб версии
+    // Метод получения локатора
+    public WebElement menu(String nameMenu){
+        return driver.findElement(By.xpath(
+                   "//div[@id='ast-desktop-header']//span[@class='menu-text' and contains(./text(), '"+nameMenu+"')]"));
+    }
+    // Метод клика по пункту меню
     public void clickMenu(String nameMenu) {
-        WebElement menu = driver.findElement(By.xpath(
-                "//div[@id='ast-desktop-header']//span[@class='menu-text' and contains(./text(), '"+nameMenu+"')]"));
-        menu.click();
+        menu(nameMenu).click();
     }
 }

@@ -1,31 +1,42 @@
 package com.way2automation.tests;
 
 import com.way2automation.config.BaseTest;
+import com.way2automation.dataProvider.RegistrationFormDataProvider;
+import com.way2automation.listener.TestListener;
 import com.way2automation.pages.DummyRegistrationPage;
 import com.way2automation.pages.MainPage;
+import io.qameta.allure.*;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 /**
  * Тестовый класс DummyRegistrationFormTests
  */
+@Epic(value = "Заполнение формы")
+@Feature(value = "Регистрация пользователя")
+@Listeners(TestListener.class)
 public class DummyRegistrationFormTests extends BaseTest {
 
-    @Test
-    public void checkRegistrationForm() {
-        DummyRegistrationPage dummyRegistrationPage = new DummyRegistrationPage();
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Story(value = "Some story")
+    @Test(description = "Параметризованный тест проверки формы регистрации",
+            dataProvider = "registrationFormDataProvider", dataProviderClass = RegistrationFormDataProvider.class)
+    public void checkRegistrationForm(String name, String phone, String email, String country, String city, String userName
+            , String password, Boolean check) {
         MainPage mainPage = new MainPage();
+        DummyRegistrationPage dummyRegistrationPage = new DummyRegistrationPage();
         mainPage.clickMenu("Resources");
         mainPage.clickMenu("Practice Site 1");
-        dummyRegistrationPage.signUpRegistrationForm(
-                "Vasya",
-                "35345345",
-                "werfgd@gmail.com",
-                "Russian Federation",
-                "Moscow",
-                "Vasya",
-                "Vasya2342");
-        Assert.assertEquals(dummyRegistrationPage.getAlertText(),
-                "This is just a dummy form, you just clicked SUBMIT BUTTON","Ожидалось совпадение сообщений");
+        dummyRegistrationPage.signUpRegistrationForm(name, phone, email, country, city, userName, password);
+        // Проверка на совпадение появления или не появления сообщения о заполнении формы
+        Assert.assertEquals(dummyRegistrationPage.checkAlertText(), check,
+                "Ожидалось совпадение заданного boolean значения(появится или не появится сообщение)");
+        // Проверка соответствия сообщения при вводе корректных данных
+        if (dummyRegistrationPage.checkAlertText()) {
+            Assert.assertEquals(dummyRegistrationPage.getTextMessage(),
+                    "This is just a dummy form, you just clicked SUBMIT BUTTON",
+                    "Ожидалось сообщение о подтверждении заполнения формы");
+        }
     }
 }

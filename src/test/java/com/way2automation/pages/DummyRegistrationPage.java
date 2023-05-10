@@ -2,17 +2,16 @@ package com.way2automation.pages;
 
 import com.way2automation.config.BasePage;
 import com.way2automation.config.Waits;
+import io.qameta.allure.Step;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Page class Dummy Registration Form
  */
-
 public class DummyRegistrationPage extends BasePage {
     // Поле регистрации Name
     @FindBy(name = "name")
@@ -48,6 +47,7 @@ public class DummyRegistrationPage extends BasePage {
         PageFactory.initElements(driver,this);
     }
 
+    @Step("Ввод данных в форму")
     public void signUpRegistrationForm(String name, String phone, String email, String country, String city,
                                        String username, String password){
         nameField.sendKeys(name);
@@ -59,9 +59,19 @@ public class DummyRegistrationPage extends BasePage {
         passwordField.sendKeys(password);
         submitButton.click();
     }
-
-    public String getAlertText(){
+    @Step("Метод возвращает текст сообщения после ввода данных")
+    public String getTextMessage(){
         wait.getWait().until(ExpectedConditions.visibilityOf(alertMessage));
         return alertMessage.getText();
+    }
+
+    @Step("Проверка сообщения подтверждения регистрации")
+    public boolean checkAlertText(){
+        try {
+            wait.getWait().until(ExpectedConditions.visibilityOf(alertMessage));
+            return true;
+        }catch (TimeoutException err){
+            return false;
+        }
     }
 }

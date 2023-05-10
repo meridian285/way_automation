@@ -1,6 +1,7 @@
 package com.way2automation.pages;
 
 import com.way2automation.config.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -18,6 +19,7 @@ public class MainPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
     // Метод клика по любому пункту меню, для веб версии
+    @Step("Нажатие пункта меню")
     public void clickMenu(String nameMenu) {
         WebElement menu = driver.findElement(By.xpath(
                 "//div[@id='ast-desktop-header']//span[@class='menu-text' and contains(./text(), '"+nameMenu+"')]"));

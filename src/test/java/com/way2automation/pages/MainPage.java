@@ -1,7 +1,6 @@
 package com.way2automation.pages;
 
 import com.way2automation.config.BasePage;
-import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -18,11 +17,13 @@ public class MainPage extends BasePage {
         driver.get("https://www.way2automation.com/");
         PageFactory.initElements(driver, this);
     }
-    // Метод клика по любому пункту меню, для веб версии
-    @Step("Нажатие пункта меню")
+    // Метод получения локатора
+    public WebElement menu(String nameMenu){
+        return driver.findElement(By.xpath(
+                   "//div[@id='ast-desktop-header']//span[@class='menu-text' and contains(./text(), '"+nameMenu+"')]"));
+    }
+    // Метод клика по пункту меню
     public void clickMenu(String nameMenu) {
-        WebElement menu = driver.findElement(By.xpath(
-                "//div[@id='ast-desktop-header']//span[@class='menu-text' and contains(./text(), '"+nameMenu+"')]"));
-        menu.click();
+        menu(nameMenu).click();
     }
 }

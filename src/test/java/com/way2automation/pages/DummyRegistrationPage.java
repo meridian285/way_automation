@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 
 /**
  * Page class Dummy Registration Form
@@ -43,13 +44,13 @@ public class DummyRegistrationPage extends BasePage {
 
     Waits wait = new Waits();
 
-    public DummyRegistrationPage(){
-        PageFactory.initElements(driver,this);
+    public DummyRegistrationPage() {
+        PageFactory.initElements(driver, this);
     }
 
     @Step("Ввод данных в форму")
     public void signUpRegistrationForm(String name, String phone, String email, String country, String city,
-                                       String username, String password){
+                                       String username, String password) {
         nameField.sendKeys(name);
         phoneField.sendKeys(phone);
         emailField.sendKeys(email);
@@ -59,19 +60,29 @@ public class DummyRegistrationPage extends BasePage {
         passwordField.sendKeys(password);
         submitButton.click();
     }
+
     @Step("Метод возвращает текст сообщения после ввода данных")
-    public String getTextMessage(){
+    public String getTextMessage() {
         wait.getWait().until(ExpectedConditions.visibilityOf(alertMessage));
         return alertMessage.getText();
     }
 
-    @Step("Проверка сообщения подтверждения регистрации")
-    public boolean checkAlertText(){
+    @Step("Метод возвращает true если сообщение регистрации появилось")
+    public boolean checkAlertText() {
         try {
             wait.getWait().until(ExpectedConditions.visibilityOf(alertMessage));
             return true;
-        }catch (TimeoutException err){
+        } catch (TimeoutException err) {
             return false;
+        }
+    }
+
+    @Step("Проверка соответствия сообщения при вводе корректных данных")
+    public void checkMessage() {
+        if (checkAlertText()) {
+            Assert.assertEquals(getTextMessage(),
+                    "This is just a dummy form, you just clicked SUBMIT BUTTON",
+                    "Ожидалось сообщение о подтверждении заполнения формы");
         }
     }
 }

@@ -26,17 +26,13 @@ public class DummyRegistrationFormTests extends BaseTest {
             , String password, Boolean check) {
         MainPage mainPage = new MainPage();
         DummyRegistrationPage dummyRegistrationPage = new DummyRegistrationPage();
-        mainPage.clickMenu("Resources");
-        mainPage.clickMenu("Practice Site 1");
+        mainPage.clickMenu("Resources")
+                .clickMenu("Practice Site 1");
         dummyRegistrationPage.signUpRegistrationForm(name, phone, email, country, city, userName, password);
-        // Проверка на совпадение появления или не появления сообщения о заполнении формы
+        // Проверка появилось ли сообщение
         Assert.assertEquals(dummyRegistrationPage.checkAlertText(), check,
-                "Ожидалось совпадение заданного boolean значения(появится или не появится сообщение)");
-        // Проверка соответствия сообщения при вводе корректных данных
-        if (dummyRegistrationPage.checkAlertText()) {
-            Assert.assertEquals(dummyRegistrationPage.getTextMessage(),
-                    "This is just a dummy form, you just clicked SUBMIT BUTTON",
-                    "Ожидалось сообщение о подтверждении заполнения формы");
-        }
+                "Ожидалось совпадение заданного boolean значения (появится или не появится сообщение)");
+        // Проверка корректности сообщения
+        dummyRegistrationPage.checkMessage();
     }
 }

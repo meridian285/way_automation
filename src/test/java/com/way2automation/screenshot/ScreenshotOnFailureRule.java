@@ -11,7 +11,9 @@ import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class ScreenshotOnFailureRule extends BasePage {
 
@@ -22,20 +24,21 @@ public class ScreenshotOnFailureRule extends BasePage {
 
     // Скриншот в файл
     @Attachment(value = "Page screenshot", type = "image/png")
-    public static void filedScreenshot(String testMethodName){
-        File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        Date d = new Date();
-        String TimeStamp = d.toString().replace(":", "_").replace(" ", "_");
-        try{
-            FileUtils.copyFile(srcFile, new File("src/test/resources" + TimeStamp + ".png"));
-        }catch (IOException e){
+    public static void filedScreenshot(String testMethodName) {
+        File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+        String dateFormat = DateFormat.getDateTimeInstance(1, 1, Locale.ROOT).format(new Date())
+                .replace(":", "_").replace(" ", "_");
+        try {
+            FileUtils.copyFile(srcFile, new File("src/test/resources" + dateFormat + ".png"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     // Скриншот с помощью библиотеки ashot
     @Attachment(value = "Page screenshot", type = "image/png")
-    public static BufferedImage ashotScreen(){
+    public static BufferedImage ashotScreen() {
         return new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100)).takeScreenshot(driver).getImage();
     }
 }

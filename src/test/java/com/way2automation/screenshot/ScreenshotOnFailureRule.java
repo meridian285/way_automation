@@ -24,7 +24,7 @@ public class ScreenshotOnFailureRule extends BasePage {
 
     // Скриншот в файл
     @Attachment(value = "Page screenshot", type = "image/png")
-    public static void filedScreenshot(String testMethodName) {
+    public static void filedScreenshot() {
         File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
         String dateFormat = DateFormat.getDateTimeInstance(1, 1, Locale.ROOT).format(new Date())

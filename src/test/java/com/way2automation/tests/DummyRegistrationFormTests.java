@@ -23,16 +23,14 @@ public class DummyRegistrationFormTests extends BaseTest {
     @Test(description = "Параметризованный тест проверки формы регистрации",
             dataProvider = "registrationFormDataProvider", dataProviderClass = RegistrationFormDataProvider.class)
     public void checkRegistrationForm(String name, String phone, String email, String country, String city, String userName
-            , String password, Boolean check) {
+            , String password, boolean check) {
         MainPage mainPage = new MainPage();
         DummyRegistrationPage dummyRegistrationPage = new DummyRegistrationPage();
         mainPage.clickMenu("Resources")
                 .clickMenu("Practice Site 1");
         dummyRegistrationPage.signUpRegistrationForm(name, phone, email, country, city, userName, password);
-        // Проверка появилось ли сообщение
-        Assert.assertEquals(dummyRegistrationPage.checkAlertText(), check,
-                "Ожидалось совпадение заданного boolean значения (появится или не появится сообщение)");
-        // Проверка корректности сообщения
+        Assert.assertEquals(dummyRegistrationPage.checkAlertText(), check, "Проверка появилось ли сообщение");
+        // Проверка на корректность сообщения
         dummyRegistrationPage.checkMessage();
     }
 }

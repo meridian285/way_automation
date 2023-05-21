@@ -1,6 +1,5 @@
 package com.way2automation.pages;
 
-import com.way2automation.config.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,9 +22,9 @@ public class MainPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    @Step("Метод клика по пункту меню")
+    @Step("Нажать на пункт меню")
     public MainPage clickMenu(String nameMenu) {
-        menuList.stream().filter(x->x.getText().equals(nameMenu)).findFirst().ifPresent(x->x.click());
+        menuList.stream().filter(x -> x.getText().equals(nameMenu)).findFirst().ifPresent(x -> x.click());
         return this;
     }
 }

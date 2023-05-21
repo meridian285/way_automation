@@ -1,6 +1,6 @@
 package com.way2automation.screenshot;
 
-import com.way2automation.config.BasePage;
+import com.way2automation.pages.BasePage;
 import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -11,9 +11,8 @@ import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class ScreenshotOnFailureRule extends BasePage {
 
@@ -26,11 +25,9 @@ public class ScreenshotOnFailureRule extends BasePage {
     @Attachment(value = "Page screenshot", type = "image/png")
     public static void filedScreenshot() {
         File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
-        String dateFormat = DateFormat.getDateTimeInstance(1, 1, Locale.ROOT).format(new Date())
-                .replace(":", "_").replace(" ", "_");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
         try {
-            FileUtils.copyFile(srcFile, new File("src/test/resources" + dateFormat + ".png"));
+            FileUtils.copyFile(srcFile, new File("src/test/resources" + sdf.format(new Date()) + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

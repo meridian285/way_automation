@@ -1,14 +1,10 @@
 package com.way2automation.pages;
 
-import com.way2automation.config.BasePage;
 import com.way2automation.config.Waits;
 import io.qameta.allure.Step;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 
 /**
  * Page class Dummy Registration Form
@@ -39,7 +35,7 @@ public class DummyRegistrationPage extends BasePage {
     @FindBy(xpath = "//div[@class='fancybox-inner']//input[@class='button']")
     private WebElement submitButton;
     // Проверка что ворма заполнена
-    @FindBy(xpath = "//div[@class='fancybox-inner']//p[@id='alert']")
+    @FindBy(xpath = "//p[@id='alert']")
     private WebElement alertMessage;
 
     Waits wait = new Waits();
@@ -48,7 +44,7 @@ public class DummyRegistrationPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    @Step("Ввод данных в форму")
+    @Step("Ввести данные в форму")
     public void signUpRegistrationForm(String name, String phone, String email, String country, String city,
                                        String username, String password) {
         nameField.sendKeys(name);
@@ -61,28 +57,9 @@ public class DummyRegistrationPage extends BasePage {
         submitButton.click();
     }
 
-    @Step("Метод возвращает текст сообщения после ввода данных")
-    public String getTextMessage() {
-        wait.getWait().until(ExpectedConditions.visibilityOf(alertMessage));
-        return alertMessage.getText();
-    }
-
-    @Step("Метод возвращает true если сообщение регистрации появилось")
-    public boolean checkAlertText() {
-        try {
-            wait.getWait().until(ExpectedConditions.visibilityOf(alertMessage));
-            return true;
-        } catch (TimeoutException err) {
-            return false;
-        }
-    }
-
-    @Step("Проверка соответствия сообщения при вводе корректных данных")
-    public void checkMessage() {
-        if (checkAlertText()) {
-            Assert.assertEquals(getTextMessage(),
-                    "This is just a dummy form, you just clicked SUBMIT BUTTON",
-                    "Ожидалось сообщение о подтверждении заполнения формы");
-        }
+    @Step("Вернуть true если появился элемент с текстом")
+    public boolean waitMessage() {
+            return wait.untilTextToBePresentInElement(alertMessage,
+                    "This is just a dummy form, you just clicked SUBMIT BUTTON");
     }
 }

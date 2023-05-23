@@ -38,7 +38,7 @@ public class DummyRegistrationPage extends BasePage {
     @FindBy(xpath = "//p[@id='alert']")
     private WebElement alertMessage;
 
-    Waits wait = new Waits();
+    Waits wait = new Waits(driver);
 
     public DummyRegistrationPage() {
         PageFactory.initElements(driver, this);

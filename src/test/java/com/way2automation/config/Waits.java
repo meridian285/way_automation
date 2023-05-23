@@ -1,5 +1,6 @@
 package com.way2automation.config;
 
+import com.way2automation.pages.BasePage;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * Waits class
  */
 
-public class Waits {
+public class Waits extends BasePage {
 
     protected WebDriver driver;
 

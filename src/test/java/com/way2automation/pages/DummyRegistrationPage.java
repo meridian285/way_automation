@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 /**
  * Page class Dummy Registration Form
@@ -38,14 +39,14 @@ public class DummyRegistrationPage extends BasePage {
     @FindBy(xpath = "//p[@id='alert']")
     private WebElement alertMessage;
 
-    Waits wait = new Waits();
+    Waits wait = new Waits(driver);
 
     public DummyRegistrationPage() {
         PageFactory.initElements(driver, this);
     }
 
     @Step("Ввести данные в форму")
-    public void signUpRegistrationForm(String name, String phone, String email, String country, String city,
+    public DummyRegistrationPage signUpRegistrationForm(String name, String phone, String email, String country, String city,
                                        String username, String password) {
         nameField.sendKeys(name);
         phoneField.sendKeys(phone);
@@ -55,11 +56,16 @@ public class DummyRegistrationPage extends BasePage {
         usernameField.sendKeys(username);
         passwordField.sendKeys(password);
         submitButton.click();
+        return this;
     }
 
-    @Step("Вернуть true если появился элемент с текстом")
-    public boolean waitMessage() {
+    private boolean isMessagePresent() {
             return wait.untilTextToBePresentInElement(alertMessage,
                     "This is just a dummy form, you just clicked SUBMIT BUTTON");
+    }
+
+    @Step("Проверить наличие сообщения")
+    public void checkMessagePresent(boolean check){
+        Assert.assertEquals(isMessagePresent(), check, "Результат не соответствует ожидаемому");
     }
 }

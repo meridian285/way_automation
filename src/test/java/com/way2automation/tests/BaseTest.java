@@ -7,12 +7,11 @@ import org.testng.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class BaseTest {
+public class BaseTest {
     protected static WebDriver driver;
 
     @BeforeTest
     public void setUp() {
-
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);

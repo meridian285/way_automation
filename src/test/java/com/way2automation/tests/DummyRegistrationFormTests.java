@@ -21,13 +21,13 @@ public class DummyRegistrationFormTests extends BaseTest {
     @Story(value = "Some story")
     @Test(description = "Параметризованный тест проверки формы регистрации",
             dataProvider = "registrationFormDataProvider", dataProviderClass = RegistrationFormDataProvider.class, threadPoolSize = 4)
-    public void checkRegistrationForm(String name, String phone, String email, String country, String city, String userName
-            , String password, boolean check) {
+    public void checkRegistrationForm(String name, String phone, String email, String country, String city, String userName,
+                                      String password, boolean check) {
         MainPage mainPage = new MainPage();
         DummyRegistrationPage dummyRegistrationPage = new DummyRegistrationPage();
         mainPage.clickMenu("Resources")
                 .clickMenu("Practice Site 1");
-        dummyRegistrationPage.signUpRegistrationForm(name, phone, email, country, city, userName, password);
-        Assert.assertEquals(dummyRegistrationPage.waitMessage(), check, "Результат не соответствует ожидаемому");
+        dummyRegistrationPage.signUpRegistrationForm(name, phone, email, country, city, userName, password)
+                .checkMessagePresent(check);
     }
 }

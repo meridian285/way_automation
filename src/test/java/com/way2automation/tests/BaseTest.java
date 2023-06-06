@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class BaseTest {
     protected static WebDriver driver;
 
-    @BeforeTest
+    @BeforeMethod
     public void setUp() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -19,7 +19,7 @@ public class BaseTest {
         BasePage.setDriver(driver);
     }
 
-    @AfterTest
+    @AfterMethod
     public void tearDown() {
         driver.quit();
     }

@@ -1,10 +1,12 @@
 package com.way2automation.tests;
 
 import com.way2automation.dataProvider.RegistrationFormDataProvider;
+import com.way2automation.help.JSExecutor;
 import com.way2automation.listener.TestListener;
 import com.way2automation.pages.DummyRegistrationPage;
 import com.way2automation.pages.MainPage;
 import io.qameta.allure.*;
+import org.openqa.selenium.Dimension;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -29,5 +31,15 @@ public class DummyRegistrationFormTests extends BaseTest {
                 .clickMenu("Practice Site 1");
         dummyRegistrationPage.signUpRegistrationForm(name, phone, email, country, city, userName, password)
                 .checkMessagePresent(check);
+    }
+
+    @Severity(value = SeverityLevel.NORMAL)
+    @Story(value = "Some story")
+    @Test(description = "Тест на проверку скролбаров, размер окна 500Х900")
+    public void testScroll(){
+        new MainPage();
+        driver.manage().window().setSize(new Dimension(500, 900));
+        Assert.assertTrue(new JSExecutor(driver).testVertScrollStatus(), "Проверка на вертикальную полосу прокрутки");
+        Assert.assertTrue(new JSExecutor(driver).testHorizonScrollStatus(), "Проверка на горизонтальную полосу прокрутки");
     }
 }

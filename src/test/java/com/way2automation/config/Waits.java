@@ -20,6 +20,7 @@ public class Waits extends BasePage {
     public Waits(WebDriver webDriver) {
         wait = new WebDriverWait(webDriver, 3);
     }
+
     // Ожидание видимости элемента
     public WebElement untilVisible(WebElement webElement) {
         return wait.until(ExpectedConditions.visibilityOf(webElement));
@@ -27,6 +28,7 @@ public class Waits extends BasePage {
 
     /**
      * Ожидание видимости элемента содержащего текст
+     *
      * @param webElement
      * @param message
      * @return
@@ -38,5 +40,9 @@ public class Waits extends BasePage {
         } catch (TimeoutException e) {
             return false;
         }
+    }
+
+    public WebElement untilElementToBeClickable(WebElement webElement) {
+        return wait.until(ExpectedConditions.elementToBeClickable(webElement));
     }
 }

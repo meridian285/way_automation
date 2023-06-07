@@ -1,0 +1,1 @@
+java -jar C:\web\selenium_grid\selenium-server-4.9.0.jar standalone

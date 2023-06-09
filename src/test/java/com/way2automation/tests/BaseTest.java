@@ -12,7 +12,6 @@ import java.net.URL;
 import java.time.Duration;
 
 public class BaseTest {
-
     protected static WebDriver driver;
     protected static ThreadLocal<RemoteWebDriver> remoteDriver = new ThreadLocal<>();
     protected CapabilityFactory capabilityFactory = new CapabilityFactory();

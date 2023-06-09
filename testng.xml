@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="practice">
-    <test name="Проверка регистрационной формы" >
+    <test name="Проверка регистрационной формы">
         <parameter name="browser" value="chrome"/>
+        <parameter name="environment" value=""/>
         <classes>
             <class name="com.way2automation.tests.DummyRegistrationFormTests">
                 <methods>

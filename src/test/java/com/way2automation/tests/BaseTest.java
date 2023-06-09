@@ -7,13 +7,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.testng.annotations.*;
 
+import java.io.FileNotFoundException;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     protected static WebDriver driver;
 
-    @BeforeTest
-    public void setUp() {
+    @BeforeMethod
+    public void setUp() throws FileNotFoundException {
         ChromeOptions options = new ChromeOptions();
         options.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
         driver = new ChromeDriver(options);
@@ -23,7 +24,7 @@ public class BaseTest {
         BasePage.setDriver(driver);
     }
 
-    @AfterTest
+    @AfterMethod
     public void tearDown() {
         driver.quit();
     }

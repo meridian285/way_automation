@@ -22,14 +22,14 @@ import java.util.Scanner;
  */
 
 public class Cookies {
-    private WebDriver driver;
+    private final WebDriver driver;
 
     public Cookies(WebDriver webDriver) {
         driver = webDriver;
     }
 
     @Step("Записать cookie в файл")
-    public void setCookieToFile() throws IOException {
+    public void saveCookieToFile() throws IOException {
         Path cookiesFile = Paths.get("src/test/resources/cookies.txt");
         try (PrintWriter file = new PrintWriter(cookiesFile.toFile(), StandardCharsets.UTF_8)) {
             for (Cookie c : driver.manage().getCookies()) {
@@ -45,17 +45,17 @@ public class Cookies {
         File file = new File("src/test/resources/cookies.txt");
         List<String> lines = new ArrayList<>();
         int i = 0;
-        String valueCookei = null;
+        String valueCookie = null;
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 lines.add(scanner.nextLine());
                 if (lines.get(i).startsWith(nameCookie)) {
-                    valueCookei = lines.get(i).substring(lines.get(i).indexOf('=') + 1, lines.get(i).indexOf(';'));
+                    valueCookie = lines.get(i).substring(lines.get(i).indexOf('=') + 1, lines.get(i).indexOf(';'));
                     break;
                 }
                 i = i + 1;
             }
         }
-        return new Cookie(nameCookie, valueCookei);
+        return new Cookie(nameCookie, valueCookie);
     }
 }

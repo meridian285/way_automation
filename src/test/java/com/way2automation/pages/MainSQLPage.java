@@ -40,15 +40,14 @@ public class MainSQLPage extends BasePage {
     }
 
     @Step("Вернуть веб элемент кнопки выхода")
-    public WebElement checkButtonExit() {
+    public WebElement buttonExit() {
         return exitButton;
     }
 
-    @Step()
+    @Step("Добавить нужные для авторизации куки")
     public void setCookie(String nameCookie) throws FileNotFoundException {
         driver.manage().addCookie(new Cookies(driver).getCookieFromFile(nameCookie));
         driver.navigate().refresh();
     }
 }
-
 

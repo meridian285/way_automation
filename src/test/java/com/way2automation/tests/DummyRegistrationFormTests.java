@@ -39,7 +39,7 @@ public class DummyRegistrationFormTests extends BaseTest {
     public void testScroll(){
         new MainPage();
         driver.manage().window().setSize(new Dimension(500, 900));
-        Assert.assertTrue(new JSExecutor(driver).testVertScrollStatus(), "Проверка на вертикальную полосу прокрутки");
-        Assert.assertTrue(new JSExecutor(driver).testHorizonScrollStatus(), "Проверка на горизонтальную полосу прокрутки");
+        Assert.assertTrue(new JSExecutor(driver).isVertScrollStatus(), "Проверка на вертикальную полосу прокрутки");
+        Assert.assertTrue(new JSExecutor(driver).isHorizonScrollStatus(), "Проверка на горизонтальную полосу прокрутки");
     }
 }

@@ -11,30 +11,32 @@ import org.openqa.selenium.WebElement;
 
 public class JSExecutor {
     protected WebDriver driver;
+    JavascriptExecutor js;
 
     public JSExecutor(WebDriver webDriver){
         driver = webDriver;
+        js = (JavascriptExecutor) driver;
     }
 
     @Step("Скролить до элемента")
     public void jsMoveToElement(WebElement webElement) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", webElement);
+        js.executeScript("arguments[0].scrollIntoView(true);", webElement);
     }
 
     @Step("Снять фокус с элемента")
     public void jsExecutorBlur(WebElement webElement) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('blur'))", webElement);
+        js.executeScript("arguments[0].dispatchEvent(new Event('blur'))", webElement);
     }
 
     @Step("Проверить на наличие горизонтальной полосы прокрутки")
-    public boolean testHorizonScrollStatus() {
-        return (Boolean) ((JavascriptExecutor) driver).executeScript(
+    public boolean isHorizonScrollStatus() {
+        return (Boolean) js.executeScript(
                 "return document.documentElement.scrollWidth>document.documentElement.clientWidth;");
     }
 
-    @Step("Проверка на наличие вертикальной полосы прокрутки")
-    public boolean testVertScrollStatus() {
-        return (Boolean) ((JavascriptExecutor) driver).executeScript(
+    @Step("Проверить на наличие вертикальной полосы прокрутки")
+    public boolean isVertScrollStatus() {
+        return (Boolean) js.executeScript(
                 "return document.documentElement.scrollHeight>document.documentElement.clientHeight;");
     }
 }

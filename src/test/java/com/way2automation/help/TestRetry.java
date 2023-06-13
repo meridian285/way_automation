@@ -13,12 +13,9 @@ public class TestRetry implements IRetryAnalyzer {
     @Override
     public boolean retry(ITestResult iTestResult) {
         // Условие выполняется если тест упал
-        if (!iTestResult.isSuccess()) {
-            int maxCount = ReadProperties.MAX_COUNT;
-            if (count < maxCount) {
-                count++;
-                return true;
-            }
+        if(!iTestResult.isSuccess() &&  count < ReadProperties.MAX_COUNT) {
+            count++;
+            return true;
         }
         return false;
     }

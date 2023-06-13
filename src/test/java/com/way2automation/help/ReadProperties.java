@@ -12,5 +12,5 @@ public interface ReadProperties {
         return ConfigFactory.load("application.properties");
     }
 
-     int MAX_COUNT = readProperty().getInt("maxCount");
+    int MAX_COUNT = readProperty().getInt("maxCount");
 }

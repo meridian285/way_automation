@@ -29,9 +29,14 @@ public class DragAndDropPage extends BasePage {
     }
 
     @Step("Перетащить элемент 1 на элемент 2")
-    public void dragAndDropTest() {
+    public DragAndDropPage dragAndDropTest() {
         new SwitchTo(driver).switchToFrame(frame);
         new CustomActions(driver).buildDragAndDrop(draggableElement, droppableElement);
-        Assert.assertEquals(droppableElement.getText(), "Dropped!");
+        return this;
+    }
+
+    @Step("Проверить что элемент 1 перетянулся на элемент 2")
+    public void checkDragAndDrop(){
+        Assert.assertEquals(droppableElement.getText(), "Dropped!", "Ожидалась надпись - Dropped! на элементе");
     }
 }

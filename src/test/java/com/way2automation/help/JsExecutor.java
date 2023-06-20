@@ -9,11 +9,11 @@ import org.openqa.selenium.WebElement;
  *  Class JavascriptExecutor
  */
 
-public class JSExecutor {
+public class JsExecutor {
     protected WebDriver driver;
     JavascriptExecutor js;
 
-    public JSExecutor(WebDriver webDriver){
+    public JsExecutor(WebDriver webDriver){
         driver = webDriver;
         js = (JavascriptExecutor) driver;
     }

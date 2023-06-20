@@ -50,7 +50,7 @@ public class InputAlertPage extends BasePage {
         Assert.assertTrue(textField.getText().contains(value));
     }
 
-    @Step("Ввести значение в поле")
+    @Step("Ввести значение в поле в Алерте")
     public InputAlertPage inputAlertValue(String value) {
         new SwitchTo.Alert().inputAlertValues(value);
         new SwitchTo.Alert().alertAccept();

@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * Класс SwitchTo
  */
-
 public class SwitchTo {
     private static WebDriver driver;
 
@@ -27,6 +26,9 @@ public class SwitchTo {
         return driver.switchTo().window(windowHandles.get(index));
     }
 
+    /**
+     * Вложенный класс для отделения Alert
+     */
     public static class Alert {
         public void inputAlertValues(String value) {
             driver.switchTo().alert().sendKeys(value);

@@ -3,7 +3,8 @@
 <suite name="practice">
     <test name="Проверка регистрационной формы">
         <parameter name="browser" value="chrome"/>
-        <parameter name="environment" value=""/>
+        <parameter name="url" value="http://localhost:4444/wd/hub"/>  <!-- адрес где запускать тесты -->
+        <parameter name="environment" value="remote"/>
         <classes>
             <class name="com.way2automation.tests.DummyRegistrationFormTests">
                 <methods>

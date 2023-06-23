@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
@@ -25,9 +26,9 @@ public class BaseTest {
     }
 
     // Настройки для удаленного запуска тестов
-    public void runRemote(String browser) {
+    public void runRemote(String browser, String url) {
         try {
-            remoteDriver.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilityFactory.getCapabilities(browser)));
+            remoteDriver.set(new RemoteWebDriver(new URL(url), capabilityFactory.getCapabilities(browser)));
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -38,11 +39,17 @@ public class BaseTest {
     }
 
     // BeforeMethod с параметрами из testng.xml
-    @Parameters(value = {"browser", "environment"})
+    @Parameters(value = {"browser", "url", "environment"})
     @BeforeMethod
-    public void setUp(String browser, String environment) {
+    public void setUp(String browser, String url, String environment) {
         if (environment.equals("remote")) {
-            runRemote(browser);
+            try {
+                Runtime.getRuntime().exec("cmd /c START_HUB.bat");
+                Thread.sleep(3000);
+            } catch (IOException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            runRemote(browser, url);
         } else
             runLocal(browser);
     }

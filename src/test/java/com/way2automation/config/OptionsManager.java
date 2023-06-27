@@ -12,11 +12,7 @@ public class OptionsManager {
 
     public static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--start-maximized");
         options.addArguments("--headless");
-        options.addArguments("--ignore-certificate-errors");
-        options.addArguments("--disable-popup-blocking");
-        //options.addArguments("--incognito");
         options.addArguments("window-size=1400,1000");
         return options;
     }
@@ -31,7 +27,7 @@ public class OptionsManager {
 
     public static Capabilities getIEOptions() {
         InternetExplorerOptions options = new InternetExplorerOptions();
-//        options.setCapability("ie.edgechromium", true); // настройка для запуска на w10-11
+        options.setCapability("ie.edgechromium", true); // настройка для запуска на w10-11
         options.setCapability("ignoreProtectedModeSettings", true);
         options.setCapability("ignoreZoomSetting", true);
         return options;
@@ -44,13 +40,9 @@ public class OptionsManager {
         return options;
     }
 
-//    public static Capabilities getOperaDriver() {
-//        OperaDriverManager operaDriverManager = new OperaDriverManager();
-//        return operaDriverManager;
-//    }
-
     static Capabilities getEdgeDriver() {
         EdgeOptions options = new EdgeOptions();
+        options.addArguments("--headless");
         options.addArguments("--width=1400");
         options.addArguments("--height=1024");
         return options;

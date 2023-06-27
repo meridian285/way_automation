@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="practice">
+<suite name="practice" parallel="methods" thread-count="2">
     <test name="Проверка регистрационной формы">
         <parameter name="browser" value="chrome"/>
-        <parameter name="url" value="http://localhost:4444/wd/hub"/>  <!-- адрес где запускать тесты -->
+        <parameter name="url" value="http://localhost:4444/wd/hub"/>  <!-- адрес, где запускать тесты -->
         <parameter name="environment" value="remote"/>
         <classes>
             <class name="com.way2automation.tests.DummyRegistrationFormTests">

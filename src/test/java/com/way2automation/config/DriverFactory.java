@@ -27,7 +27,7 @@ public class DriverFactory {
 
     private static WebDriver getChromeDriver() {
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless");
+        options.addArguments("--headless");
         options.addArguments("window-size=1400,1000");
         return new ChromeDriver(options);
     }
@@ -44,7 +44,7 @@ public class DriverFactory {
 
     private static WebDriver getFirefoxDriver() {
         FirefoxOptions options = new FirefoxOptions();
-//        options.addArguments("--headless");
+        options.addArguments("--headless");
         options.addArguments("--width=1400");
         options.addArguments("--height=1024");
         return new FirefoxDriver(options);

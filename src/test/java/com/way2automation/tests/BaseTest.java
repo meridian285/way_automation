@@ -32,13 +32,16 @@ public class BaseTest {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        driver = remoteDriver.get();
-        remoteDriver.get().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
-        remoteDriver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-        BasePage.setDriver(remoteDriver.get());
+        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        BasePage.setDriver(getDriver());
     }
 
-    // BeforeMethod с параметрами из testng.xml
+    public WebDriver getDriver() {
+        return remoteDriver.get();
+    }
+
+    // BeforeMethod с параметрами из xml
     @Parameters(value = {"browser", "url", "environment"})
     @BeforeMethod
     public void setUp(String browser, String url, String environment) {
@@ -54,8 +57,18 @@ public class BaseTest {
             runLocal(browser);
     }
 
+    @Parameters(value = {"browser", "url", "environment"})
     @AfterMethod
-    public void tearDown() {
-        driver.quit();
+    public void tearDown(String browser, String url, String environment) {
+        if (environment.equals("remote")) {
+            getDriver().quit();
+        } else{
+            driver.quit();
+        }
+    }
+
+    @AfterClass
+    void terminate () {
+        remoteDriver.remove();
     }
 }

@@ -20,7 +20,7 @@ public class DummyRegistrationFormTests extends BaseTest {
     @Severity(value = SeverityLevel.CRITICAL)
     @Story(value = "Some story")
     @Test(description = "Параметризованный тест проверки формы регистрации",
-            dataProvider = "registrationFormDataProvider", dataProviderClass = RegistrationFormDataProvider.class, threadPoolSize = 4)
+            dataProvider = "registrationFormDataProvider", dataProviderClass = RegistrationFormDataProvider.class)
     public void checkRegistrationForm(String name, String phone, String email, String country, String city, String userName,
                                       String password, boolean check) {
         MainPage mainPage = new MainPage();

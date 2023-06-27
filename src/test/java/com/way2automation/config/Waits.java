@@ -39,4 +39,9 @@ public class Waits extends BasePage {
             return false;
         }
     }
+
+    // Ожидание заданного url
+    public boolean untilUrlToBe(String url){
+        return wait.until(ExpectedConditions.urlToBe(url));
+    }
 }

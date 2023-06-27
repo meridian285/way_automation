@@ -13,6 +13,7 @@ public class OptionsManager {
     public static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
 //        options.addArguments("--start-maximized");
+        options.addArguments("--headless");
         options.addArguments("--ignore-certificate-errors");
         options.addArguments("--disable-popup-blocking");
         //options.addArguments("--incognito");
@@ -22,6 +23,7 @@ public class OptionsManager {
 
     public static Capabilities getFirefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
+        options.addArguments("--headless");
         options.addArguments("--width=1400");
         options.addArguments("--height=800");
         return options;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="practice" parallel="methods" thread-count="12">
+    <test name="Проверка регистрационной формы">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="url" value="http://localhost:4444/wd/hub"/>  <!-- адрес, где запускать тесты -->
+        <parameter name="environment" value="remote"/>
+        <classes>
+            <class name="com.way2automation.tests.DummyRegistrationFormTests">
+                <methods>
+<!--                    <include name="checkRegistrationForm"/>-->
+                    <include name="yandexOpen1"/>
+                    <include name="yandexOpen2"/>
+                    <include name="yandexOpen3"/>
+                    <include name="yandexOpen4"/>
+                    <include name="yandexOpen5"/>
+                    <include name="yandexOpen6"/>
+                    <include name="yandexOpen7"/>
+                    <include name="yandexOpen8"/>
+                    <include name="yandexOpen9"/>
+                    <include name="yandexOpen10"/>
+                    <include name="yandexOpen11"/>
+                    <include name="yandexOpen12"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

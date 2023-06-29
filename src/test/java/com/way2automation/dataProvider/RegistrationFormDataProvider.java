@@ -11,6 +11,8 @@ public class RegistrationFormDataProvider {
     public Object[][] getObject() {
         return new Object[][]{
                 {"Name", "Phone", "Email@mail.ru", "Russian Federation", "City", "Username", "Password", true},
+                {"Name", "Phone", "Email@mail.ru", "Russian Federation", "City", "Username1", "Password1", true},
+                {"Name", "Phone", "Email@mail.ru", "Russian Federation", "City", "Username2", "Password2", true},
                 {"Vasya", "35345345", "werfgd", "Russian Federation", "Moscow", "Vasya", "Vasya2342", false},
         };
     }

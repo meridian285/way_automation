@@ -18,7 +18,7 @@ public class Waits extends BasePage {
     protected WebDriverWait wait;
 
     public Waits(WebDriver webDriver) {
-        wait = new WebDriverWait(webDriver, 3);
+        wait = new WebDriverWait(webDriver, Duration.ofSeconds(3));
     }
 
     // Ожидание видимости элемента

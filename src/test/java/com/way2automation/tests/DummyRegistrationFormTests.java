@@ -5,7 +5,6 @@ import com.way2automation.listener.TestListener;
 import com.way2automation.pages.DummyRegistrationPage;
 import com.way2automation.pages.MainPage;
 import io.qameta.allure.*;
-import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -29,5 +28,23 @@ public class DummyRegistrationFormTests extends BaseTest {
                 .clickMenu("Practice Site 1");
         dummyRegistrationPage.signUpRegistrationForm(name, phone, email, country, city, userName, password)
                 .checkMessagePresent(check);
+    }
+
+    @Severity(value = SeverityLevel.NORMAL)
+    @Story(value = "Some story")
+    @Test(description = "Тест на проверку горизонтального скролбара, размер окна 500Х900")
+    public void testVertScroll(){
+        MainPage mainPage = new MainPage();
+        mainPage.changeWindowSize()
+                .checkVertScroll();
+    }
+
+    @Severity(value = SeverityLevel.NORMAL)
+    @Story(value = "Some story")
+    @Test(description = "Тест на проверку вертикального скролбара, размер окна 500Х900")
+    public void testHorizonScroll(){
+        MainPage mainPage = new MainPage();
+        mainPage.changeWindowSize()
+                .checkHorizonScroll();
     }
 }

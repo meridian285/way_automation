@@ -18,7 +18,7 @@ public class Waits extends BasePage {
     protected WebDriverWait wait;
 
     public Waits(WebDriver webDriver) {
-        wait = new WebDriverWait(webDriver, 3);
+        wait = new WebDriverWait(webDriver, Duration.ofSeconds(5));
     }
     // Ожидание видимости элемента
     public WebElement untilVisible(WebElement webElement) {
@@ -38,5 +38,10 @@ public class Waits extends BasePage {
         } catch (TimeoutException e) {
             return false;
         }
+    }
+
+    // Ожидание заданного url
+    public boolean untilUrlToBe(String url){
+        return wait.until(ExpectedConditions.urlToBe(url));
     }
 }

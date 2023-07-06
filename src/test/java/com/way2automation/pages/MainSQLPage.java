@@ -2,6 +2,7 @@ package com.way2automation.pages;
 
 
 import com.way2automation.help.Cookies;
+import com.way2automation.help.ReadProperties;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -70,7 +71,7 @@ public class MainSQLPage extends BasePage {
         if (isFileExists(file)) {
                 saveCookie("PHPSESSID");
         } else {
-                login("Aleksandr285", "7FdRTcgLv32-KNm");
+                login(ReadProperties.LOGIN, ReadProperties.PASSWORD);
                 checkLogIn();
                 new Cookies(driver).saveCookieToFile();
         }

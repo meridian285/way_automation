@@ -35,7 +35,7 @@ public class DummyRegistrationPage extends BasePage {
     // Кнопка формы регистрации Submit
     @FindBy(xpath = "//div[@class='fancybox-inner']//input[@class='button']")
     private WebElement submitButton;
-    // Проверка что ворма заполнена
+    // Всплывающее сообщение
     @FindBy(xpath = "//p[@id='alert']")
     private WebElement alertMessage;
 

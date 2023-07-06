@@ -1,10 +1,8 @@
 package com.way2automation.help;
 
-import com.way2automation.pages.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,12 +27,14 @@ public class Cookies {
     }
 
     @Step("Записать cookie в файл")
-    public void saveCookieToFile() throws IOException {
+    public void saveCookieToFile() {
         Path cookiesFile = Paths.get("src/test/resources/cookies.txt");
         try (PrintWriter file = new PrintWriter(cookiesFile.toFile(), StandardCharsets.UTF_8)) {
             for (Cookie c : driver.manage().getCookies()) {
                 file.println(c.toString());
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

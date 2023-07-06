@@ -6,8 +6,13 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import static com.way2automation.help.FilesClass.isFileExists;
 
 /**
  *  Page класс для тестов авторизации через Cookie
@@ -45,9 +50,30 @@ public class MainSQLPage extends BasePage {
     }
 
     @Step("Добавить нужные для авторизации куки")
-    public void setCookie(String nameCookie) throws FileNotFoundException {
-        driver.manage().addCookie(new Cookies(driver).getCookieFromFile(nameCookie));
-        driver.navigate().refresh();
+    public void saveCookie(String nameCookie) {
+        try {
+            driver.manage().addCookie(new Cookies(driver).getCookieFromFile(nameCookie));
+            driver.navigate().refresh();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Step("Проверить что авторизация прошла успешно")
+    public void checkLogIn(){
+        Assert.assertTrue(buttonExit().isDisplayed(), "Ожидалось появление нужного элемента на экране");
+    }
+
+    @Step("Проверить есть ли файл с куками, если нет то создать")
+    public void authorizationWithLoginPassword(){
+        File file = new File("src/test/resources/cookies.txt");
+        if (isFileExists(file)) {
+                saveCookie("PHPSESSID");
+        } else {
+                login("Aleksandr285", "7FdRTcgLv32-KNm");
+                checkLogIn();
+                new Cookies(driver).saveCookieToFile();
+        }
     }
 }
 

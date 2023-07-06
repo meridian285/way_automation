@@ -61,7 +61,7 @@ public class MainSQLPage extends BasePage {
     }
 
     @Step("Проверить что авторизация прошла успешно")
-    public void checkLogIn(){
+    public void checkVisibleLogInButton(){
         Assert.assertTrue(buttonExit().isDisplayed(), "Ожидалось появление нужного элемента на экране");
     }
 
@@ -72,7 +72,7 @@ public class MainSQLPage extends BasePage {
                 saveCookie("PHPSESSID");
         } else {
                 login(ReadProperties.LOGIN, ReadProperties.PASSWORD);
-                checkLogIn();
+                checkVisibleLogInButton();
                 new Cookies(driver).saveCookieToFile();
         }
     }

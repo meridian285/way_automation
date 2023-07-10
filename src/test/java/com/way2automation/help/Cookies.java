@@ -9,10 +9,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -22,14 +24,15 @@ import java.util.Scanner;
 public class Cookies {
     private final WebDriver driver;
 
+    Path path = Paths.get(ReadProperties.COOKIE_PATH);
+
     public Cookies(WebDriver webDriver) {
         driver = webDriver;
     }
 
     @Step("Записать cookie в файл")
     public void saveCookieToFile() {
-        Path cookiesFile = Paths.get("src/test/resources/cookies.txt");
-        try (PrintWriter file = new PrintWriter(cookiesFile.toFile(), StandardCharsets.UTF_8)) {
+        try (PrintWriter file = new PrintWriter(path.toFile(), StandardCharsets.UTF_8)) {
             for (Cookie c : driver.manage().getCookies()) {
                 file.println(c.toString());
             }
@@ -38,24 +41,18 @@ public class Cookies {
         }
     }
 
-    // не очень красиво, но работает, подумаю как сделать компактнее
     @Step("Извлечь из файла нужную cookie и подставляет при загрузке страницы")
-    public Cookie getCookieFromFile(String nameCookie) throws FileNotFoundException {
-        // Цикл извлекает все строки из файла в список
-        File file = new File("src/test/resources/cookies.txt");
-        List<String> lines = new ArrayList<>();
-        int i = 0;
-        String valueCookie = null;
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                lines.add(scanner.nextLine());
-                if (lines.get(i).startsWith(nameCookie)) {
-                    valueCookie = lines.get(i).substring(lines.get(i).indexOf('=') + 1, lines.get(i).indexOf(';'));
-                    break;
-                }
-                i = i + 1;
-            }
+    public Cookie getCookieFromFile(String cookieName) {
+        try {
+            List<String> lines = Files.readAllLines(path);
+            String cookieValue = lines.stream()
+                    .filter(line -> line.substring(0, line.indexOf('=')).equals(cookieName))
+                    .map(line -> line.substring(line.indexOf('=') + 1, line.indexOf(';')))
+                    .findFirst()
+                    .orElseThrow(NoSuchElementException::new);
+            return new Cookie(cookieName, cookieValue);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return new Cookie(nameCookie, valueCookie);
     }
 }

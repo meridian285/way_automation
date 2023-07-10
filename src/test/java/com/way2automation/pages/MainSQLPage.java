@@ -10,9 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import static com.way2automation.help.FilesClass.isFileExists;
 
 /**
@@ -52,12 +49,8 @@ public class MainSQLPage extends BasePage {
 
     @Step("Добавить нужные для авторизации куки")
     public void saveCookie(String nameCookie) {
-        try {
-            driver.manage().addCookie(new Cookies(driver).getCookieFromFile(nameCookie));
-            driver.navigate().refresh();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        driver.manage().addCookie(new Cookies(driver).getCookieFromFile(nameCookie));
+        driver.navigate().refresh();
     }
 
     @Step("Проверить что авторизация прошла успешно")

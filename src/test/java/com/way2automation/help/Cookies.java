@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Класс для работы с cookies
@@ -42,14 +44,32 @@ public class Cookies {
     }
 
     @Step("Извлечь из файла нужную cookie и подставляет при загрузке страницы")
-    public Cookie getCookieFromFile(String cookieName) {
+    public Cookie getCookieFromFileStream(String cookieName) {
         try {
             List<String> lines = Files.readAllLines(path);
             String cookieValue = lines.stream()
                     .filter(line -> line.substring(0, line.indexOf('=')).equals(cookieName))
                     .map(line -> line.substring(line.indexOf('=') + 1, line.indexOf(';')))
+//                    .map(line -> line.substring(line.indexOf('=') + 1, line.indexOf(';')))
                     .findFirst()
                     .orElseThrow(NoSuchElementException::new);
+            return new Cookie(cookieName, cookieValue);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Step("Извлечь из файла нужную cookie и подставляет при загрузке страницы")
+    public Cookie getCookieFromFile(String cookieName){
+        Path path = Paths.get(ReadProperties.COOKIE_PATH);
+        try {
+            String line = Files.readString(path);
+            Pattern pt = Pattern.compile(ReadProperties.PHPSESSID);
+            Matcher mt = pt.matcher(line);
+            String cookieValue = null;
+            while (mt.find()) {
+                cookieValue = mt.group();
+            }
             return new Cookie(cookieName, cookieValue);
         } catch (IOException e) {
             throw new RuntimeException(e);

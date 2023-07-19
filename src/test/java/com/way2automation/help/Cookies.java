@@ -50,7 +50,6 @@ public class Cookies {
             String cookieValue = lines.stream()
                     .filter(line -> line.substring(0, line.indexOf('=')).equals(cookieName))
                     .map(line -> line.substring(line.indexOf('=') + 1, line.indexOf(';')))
-//                    .map(line -> line.substring(line.indexOf('=') + 1, line.indexOf(';')))
                     .findFirst()
                     .orElseThrow(NoSuchElementException::new);
             return new Cookie(cookieName, cookieValue);
@@ -64,7 +63,7 @@ public class Cookies {
         Path path = Paths.get(ReadProperties.COOKIE_PATH);
         try {
             String line = Files.readString(path);
-            Pattern pt = Pattern.compile(ReadProperties.PHPSESSID);
+            Pattern pt = Pattern.compile(ReadProperties.PHPSESSID_REGEXP);
             Matcher mt = pt.matcher(line);
             String cookieValue = null;
             while (mt.find()) {

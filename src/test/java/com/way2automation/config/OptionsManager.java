@@ -10,14 +10,12 @@ public class OptionsManager {
 
     public static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless");
         options.addArguments("window-size=1400,1000");
         return options;
     }
 
     public static Capabilities getFirefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
-//        options.addArguments("--headless");
         options.addArguments("--width=1400");
         options.addArguments("--height=800");
         return options;
@@ -33,7 +31,6 @@ public class OptionsManager {
 
     public static Capabilities getEdgeOptions() {
         EdgeOptions options = new EdgeOptions();
-        options.addArguments("--headless");
         options.addArguments("--width=1400");
         options.addArguments("--height=1024");
         return options;

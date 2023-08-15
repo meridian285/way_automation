@@ -16,11 +16,11 @@ public class LoginTests extends BaseTest {
 
     @BeforeMethod
     public void setUpCookie() {
-        new MainSQLPage().authorizationWithLoginPassword();
+        new MainSQLPage().createCookieFile();
     }
 
     @Test(description = "Авторизация на сайте с помощью куков")
     public void checkTestAuthorisationWithCookie() {
-        new MainSQLPage().checkVisibleLogInButton();
+        new MainSQLPage().checkAuthorization();
     }
 }

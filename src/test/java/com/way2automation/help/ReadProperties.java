@@ -18,4 +18,5 @@ public interface ReadProperties {
     String PASSWORD = readProperty().getString("user.password");
     String COOKIE_PATH = readProperty().getString("cookie.cookiePath");
     String PHPSESSID_REGEXP = readProperty().getString("cookiePhpsessid.regexp");
+    String PHPSESSID_NAME = readProperty().getString("cookie.phpsessid");
 }

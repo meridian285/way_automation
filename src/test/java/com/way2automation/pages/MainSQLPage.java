@@ -1,7 +1,7 @@
 package com.way2automation.pages;
 
 
-import com.way2automation.help.Cookies;
+import com.way2automation.help.CookiesHelper;
 import com.way2automation.help.ReadProperties;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
@@ -10,10 +10,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import java.io.File;
+
 import static com.way2automation.help.FilesClass.isFileExists;
 
 /**
- *  Page класс для тестов авторизации через Cookie
+ * Page класс для тестов авторизации через Cookie
  */
 
 public class MainSQLPage extends BasePage {
@@ -28,7 +29,7 @@ public class MainSQLPage extends BasePage {
     private WebElement enterButton;
     // Локатор кнопки выхода
     @FindBy(xpath = "//a[@href='/logout.php']")
-    private WebElement exitButton;
+    private WebElement logoutButton;
 
     public MainSQLPage() {
         driver.get("https://www.sql-ex.ru/");
@@ -42,31 +43,26 @@ public class MainSQLPage extends BasePage {
         enterButton.click();
     }
 
-    @Step("Вернуть веб элемент кнопки выхода")
-    public WebElement buttonExit() {
-        return exitButton;
-    }
-
     @Step("Добавить нужные для авторизации куки")
     public void saveCookie(String nameCookie) {
-        driver.manage().addCookie(new Cookies(driver).getCookieFromFile(nameCookie));
+        driver.manage().addCookie(new CookiesHelper(driver).getCookieFromFile(nameCookie));
         driver.navigate().refresh();
     }
 
     @Step("Проверить что авторизация прошла успешно")
-    public void checkVisibleLogInButton(){
-        Assert.assertTrue(buttonExit().isDisplayed(), "Ожидалось появление нужного элемента на экране");
+    public void checkAuthorization() {
+        Assert.assertTrue(logoutButton.isDisplayed(), "Ожидалось появление нужного элемента на экране");
     }
 
     @Step("Проверить есть ли файл с куками, если нет то создать")
-    public void authorizationWithLoginPassword(){
-        File file = new File("src/test/resources/cookies.txt");
+    public void createCookieFile() {
+        File file = new File(ReadProperties.COOKIE_PATH);
         if (isFileExists(file)) {
-                saveCookie("PHPSESSID");
+            saveCookie(ReadProperties.PHPSESSID_NAME);
         } else {
-                login(ReadProperties.LOGIN, ReadProperties.PASSWORD);
-                checkVisibleLogInButton();
-                new Cookies(driver).saveCookieToFile();
+            login(ReadProperties.LOGIN, ReadProperties.PASSWORD);
+            checkAuthorization();
+            new CookiesHelper(driver).saveCookieToFile();
         }
     }
 }
